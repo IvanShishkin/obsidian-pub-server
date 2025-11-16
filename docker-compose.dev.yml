@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    user: root
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: obsidian-publish-app-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - SECRET_KEY=${SECRET_KEY:-dev-secret-key}
+      - BASE_URL=http://localhost:3000
+      - DOMAIN=localhost
+      - MAX_CONTENT_SIZE=${MAX_CONTENT_SIZE:-10485760}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60000}
+      - RATE_LIMIT_MAX=${RATE_LIMIT_MAX:-100}
+      - RATE_LIMIT_PUBLIC=${RATE_LIMIT_PUBLIC:-1000}
+      - RATE_LIMIT_PASSWORD=${RATE_LIMIT_PASSWORD:-5}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+      - BCRYPT_ROUNDS=${BCRYPT_ROUNDS:-10}
+      - SESSION_SECRET=${SESSION_SECRET:-dev-session-secret}
+      - DATA_DIR=/app/data
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
