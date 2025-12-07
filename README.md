@@ -10,7 +10,7 @@ This server works with the [Obsidian Pub Plugin](https://github.com/IvanShishkin
 
 See how your published notes look in action:
 
-**👉 [Example Publication: The Law of Large Numbers](https://pub.shishkin.tech/p/8rgStN2UxQh2)**
+**👉 [Example Publication: The Law of Large Numbers](https://pub.shishkin.tech/p/zuks_GfgR48B)**
 
 ## Features
 
